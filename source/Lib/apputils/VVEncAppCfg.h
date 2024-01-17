@@ -554,6 +554,14 @@ int parse( int argc, char* argv[], vvenc_config* c, std::ostream& rcOstr )
   {
     opts.setLowerCaseOnly(); // easy app uses lower case option names only
   }
+    
+ // =============== FAST_AFFINE, H.Pejman et al., ICIP2023 ==================
+  #ifdef ENABLE_AFFINE_THR
+      opts.setSubSection("Custom Options");
+      opts.addOptions()
+          ("affine_thr,-aft", c->m_affineThr, "The threshold value for skipping affine AVMP process");
+  #endif // ENABLE_AFFINE_THR
+// =============== FAST_AFFINE, H.Pejman et al., ICIP2023 ==================
 
   opts.setSubSection("General Options");
   opts.addOptions()
