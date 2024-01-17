@@ -339,6 +339,12 @@ VVENC_DECL void vvenc_vvencMCTF_default(vvencMCTF *vvencMCTF )
 VVENC_DECL void vvenc_config_default(vvenc_config *c )
 {
   int i = 0;
+    
+  // =============== FAST_AFFINE, H.Pejman et al., ICIP2023 ==================
+  #ifdef ENABLE_AFFINE_THR
+  c->m_affineThr = 1;
+  #endif // ENABLE_AFFINE_THR
+  // =============== FAST_AFFINE, H.Pejman et al., ICIP2023 ==================
 
   // internal params
   c->m_configDone                              = false;         ///< state variable, Private context used for internal data ( do not change )
@@ -3037,6 +3043,17 @@ VVENC_DECL const char* vvenc_get_config_as_string( vvenc_config *c, vvencMsgLeve
       css << loglvl << "log2_sao_offset_scale_chroma           : " << c->m_log2SaoOffsetScale[ 1 ] << "\n";
     }
     css << loglvl << "Cost function:                         : " << getCostFunctionStr( c->m_costMode ) << "\n";
+
+    // =============== FAST_AFFINE, H.Pejman et al., ICIP2023 ==================
+    css << "\n" << "CUSTOM OPTIONS: ";
+    #ifdef ENABLE_AFFINE_THR
+        css << "Affine Threshold: " << c->m_affineThr << "\n";
+        css << "Enable Affine Threshold: " << 1 << "\n";
+    #else
+        css << "Enable Affine Threshold: " << 0 << "\n";
+    #endif 
+    // =============== FAST_AFFINE, H.Pejman et al., ICIP2023 ==================
+      
     }
 
   if( eMsgLevel >= VVENC_VERBOSE )
@@ -3210,6 +3227,15 @@ VVENC_DECL const char* vvenc_get_config_as_string( vvenc_config *c, vvencMsgLeve
     }
     css << "WppBitEqual:" << c->m_ensureWppBitEqual << " ";
     css << "WF:" << c->m_entropyCodingSyncEnabled << " ";
+    // =============== FAST_AFFINE, H.Pejman et al., ICIP2023 ==================
+    css << "\n" << "CUSTOM OPTIONS: ";
+    #ifdef ENABLE_AFFINE_THR
+        css << "Affine Threshold: " << c->m_affineThr << "\n";
+        css << "Enable Affine Threshold: " << 1 << "\n";
+    #else
+        css << "Enable Affine Threshold: " << 0 << "\n";
+    #endif 
+    // =============== FAST_AFFINE, H.Pejman et al., ICIP2023 ==================
     css << "\n";
   }
 
