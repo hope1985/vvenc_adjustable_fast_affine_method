@@ -1611,6 +1611,46 @@ bool InterSearch::predInterSearch(CodingUnit& cu, Partitioner& partitioner, doub
         }
       }
     }
+      
+    // =============== FAST_AFFINE, H.Pejman et al., ICIP2023 ==================
+
+    #ifdef ENABLE_AFFINE_THR
+
+        if (checkAffine && cu.Y().width > 8 && cu.Y().height > 8)
+        {
+            int qp = cu.qp;
+            int blk_area = cu.Y().width * cu.Y().height;
+
+            //Multi-dimensional  linears:
+            //Y = b0 + b1*(QP) + b2*(LOG2(BLK_AREA))
+            double log_affine_thr =
+                m_affine_thr_coffs[0] +
+                qp * m_affine_thr_coffs[1] +
+                log2(blk_area) * m_affine_thr_coffs[2];
+
+            //log_affine_thr is LOG 2 of estimated thr
+            //m_pcEncCfg->m_affineThr is the value of the adjustment paratemer (alpha)
+            double affine_thr = pow(2, log_affine_thr) * m_pcEncCfg->m_affineThr;
+
+            // The trained coefficients are based on the cost of 8-BitDepth videos. So, the cost should be scaled if they are not 8-bit pixel values
+            double scaled_uiHevcCost = (double)uiHevcCost;
+           
+            if (m_pcEncCfg->m_internalBitDepth[0] !=10)
+            {
+                //Based on the CTC documnet to convert 8 bit to 10 bit video or vice versa, the VTM only multiply (8 to 10 bits) or divide (10 to 8 bits) pixel values to 4.
+                //In this case, the cost values are approximately scaled by 4. 
+                //The trained data acquired from internal 10 bit data. So, if internal bit depth is 8, the conversion into 10-bit cost can be done as follows:
+                scaled_uiHevcCost = uiHevcCost * (pow(2.0, 10-m_pcEncCfg->m_internalBitDepth[0]));
+                
+            }
+            if (scaled_uiHevcCost < affine_thr)
+            {
+                checkAffine = false;
+            }
+        }
+    #endif
+    // =============== FAST_AFFINE, H.Pejman et al., ICIP2023 ==================
+      
     if (cu.Y().width > 8 && cu.Y().height > 8 && cu.slice->sps->Affine && checkAffine)
     {
       PROFILER_SCOPE_AND_STAGE_EXT( 1, _TPROF, P_INTER_MVD_SEARCH_AFFINE, &cs, partitioner.chType );
