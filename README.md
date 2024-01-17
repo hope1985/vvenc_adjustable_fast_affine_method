@@ -22,13 +22,13 @@ See the [Wiki-Page](https://github.com/fraunhoferhhi/vvenc/wiki) for more inform
 
 ## Adjustable Fast Affine Decision Method
 
-This is the modified version of VVenC 1.9.1 with the fast affine decision method proposed in the following paper:
+This is the modified version of VVenC encoder with the fast affine decision method proposed in the following paper:
 
 [H. Pejman, S. Coulombe, C. Vazquez, M. Jamali and A. Vakili, "An Adjustable Fast Decision Method for Affine Motion Estimation in VVC," ICIP, Kuala Lumpur, Malaysia, 2023, pp. 2695-2699, doi: 10.1109/ICIP49359.2023.10222750.](https://ieeexplore.ieee.org/document/10222750)
 
 ## Modifications
 
-To add the fast affine decision method to the VVenc 1.9.1, the following files have been modified:
+To add the fast affine decision method to the VVenC encoder, the following files have been modified:
 
 -	include\vvenc\VVencCfg.h
 -	source\Lib\vvenc\VVencCfg.cpp
