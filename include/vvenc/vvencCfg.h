@@ -55,6 +55,15 @@ POSSIBILITY OF SUCH DAMAGE.
 #define VVENC_NAMESPACE_BEGIN
 #define VVENC_NAMESPACE_END
 
+// =============== FAST_AFFINE, H.Pejman et al., ICIP2023 ==================
+
+#define ENABLE_AFFINE_THR
+#ifdef ENABLE_AFFINE_THR
+double  const m_affine_thr_coffs[3] = { 2.534229853866437,0.05173246 ,0.87650414 };
+#endif
+// =============== FAST_AFFINE, H.Pejman et al., ICIP2023 ==================
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -421,6 +430,14 @@ VVENC_DECL void vvenc_vvencMCTF_default(vvencMCTF *vvencMCTF );
 
 typedef struct vvenc_config
 {
+
+// =============== FAST_AFFINE, H.Pejman et al., ICIP2023 ==================
+#ifdef ENABLE_AFFINE_THR
+// Custom params
+double              m_affineThr;
+#endif // ENABLE_AAFFINE_THR
+// =============== FAST_AFFINE, H.Pejman et al., ICIP2023 ==================
+
   // core config params
   int                 m_SourceWidth;                                                     // source width in pixel
   int                 m_SourceHeight;                                                    // source height in pixel (when interlaced = field height)
