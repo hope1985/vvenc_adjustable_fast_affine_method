@@ -45,7 +45,7 @@ All the modified/Added codes are tagged between two comment lines as follows:
 
 The ```ENABLE_AFFINE_THR``` macro is defined in ```include\vvenc\vvencCfg.h``` file to enable the fast affine method (removing this macro disables all codes related to the fast affine method from VvenC). 
 
-The ```-aft``` parameter is added to VVenc to determine the threshold value of the fast affine method. For example, the line below runs vvencFFapp with a threshold value of 0.6:
+The ```-aft``` parameter is added to VVenC to determine the threshold value of the fast affine method. For example, the line below runs vvencFFapp with a threshold value of 0.6:
 
 ```
 vvencFFapp -c randomaccess_medium.cfg -i input.yuv -aft 0.6 --affine 1 -s "wxh" -r 30 -f "fn" -q "qp" -o output.yuv -b output.h266
