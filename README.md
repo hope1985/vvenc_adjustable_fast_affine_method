@@ -28,6 +28,31 @@ This is the modified version of VVenC encoder with the fast affine decision meth
 
 *École de technologie supérieure, °Summit Tech Multimedia
 
+## Modifications
+
+To add the fast affine decision method to the VVenC encoder, the following files have been modified:
+
+-	include\vvenc\VVencCfg.h
+-	source\Lib\vvenc\VVencCfg.cpp
+-	source\Lib\EncoderLib\InterSearch.cpp
+-	source\Lib\apputil\VVEncAppCfg.h
+
+All the modified/Added codes are tagged between two comment lines as follows:
+
+```
+// =========== FAST_AFFINE, H.Pejman et al., ICIP2023 =============
+                    Added/Modified codes
+// =========== FAST_AFFINE, H.Pejman et al., ICIP2023 =============
+```
+
+The ```ENABLE_AFFINE_THR``` macro is defined in ```include\vvenc\vvencCfg.h``` file to enable the fast affine method (removing this macro disables all codes related to the fast affine method). 
+
+The ```-aft``` parameter is added to VVenC to determine the threshold value of the fast affine method. For example, the line below runs vvencFFapp with a threshold value of 0.6:
+
+```
+vvencFFapp -c randomaccess_medium.cfg  -i <input>  -aft 0.6  --affine 1  ...
+```
+
 ## Build
 
 VVenC uses CMake to describe and manage the build process. A working [CMake](https://cmake.org/) installation is required to build the software. In the following, the basic build steps are described. Please refer to the [Wiki](https://github.com/fraunhoferhhi/vvenc/wiki/Build) for the description of all build options.
