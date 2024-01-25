@@ -25,6 +25,7 @@ See the [Wiki-Page](https://github.com/fraunhoferhhi/vvenc/wiki) for more inform
 This is the modified version of VVenC encoder with the fast affine decision method proposed in the paper below:
 
 [H. Pejman*, S. Coulombe*, C. Vazquez*, M. Jamali° and A. Vakili°, "An Adjustable Fast Decision Method for Affine Motion Estimation in VVC," ICIP, Kuala Lumpur, Malaysia, 2023, pp. 2695-2699, doi: 10.1109/ICIP49359.2023.10222750.](https://ieeexplore.ieee.org/document/10222750)
+
 *École de technologie supérieure, °Summit Tech Multimedia
 
 ## Build
